@@ -1,5 +1,5 @@
 const ENVIRONMENT = process.env.NODE_ENV;
-const BUILD_NUMBER = process.env.build_number;
+const BUILD_NUMBER = process.env.build_number; 
 const EDITOR_VER = process.env.editor_version_number;
 const PLUGIN_FRAMEWORK_VER = process.env.framework_version_number;
 
@@ -111,7 +111,7 @@ const APP_STYLE = [
     './app/styles/commonStyles.css',
     './app/styles/content-editor.css',
     './app/styles/noto.css',
-    './content-editor/scripts/plugin-vendor.min.css' // Plugin css files // TODO: Need to remove the styles files from this package
+    './plugins/app/scripts/plugin-vendor.min.css' // Plugin css files // TODO: Need to remove the styles files from this package
 ];
 
 // removing the duplicate files
