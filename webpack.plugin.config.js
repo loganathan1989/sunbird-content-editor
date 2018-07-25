@@ -61,7 +61,7 @@ function getEntryFiles() {
 
 function packagePlugins() {
     var pluginPackageArr = []; // Default coreplugin
-    pluginPackageArr.push('./content-editor/scripts/coreplugins.js')
+    pluginPackageArr.push('./plugins/dist/coreplugins.js')
     corePlugins.forEach(function(plugin) {
         var dependenciesArr = [];
         var packagedDepArr = [];

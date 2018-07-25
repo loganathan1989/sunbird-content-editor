@@ -111,7 +111,7 @@ const APP_STYLE = [
     './app/styles/commonStyles.css',
     './app/styles/content-editor.css',
     './app/styles/noto.css',
-    './plugins/app/scripts/plugin-vendor.min.css' // Plugin css files // TODO: Need to remove the styles files from this package
+    './plugins/dist/plugin-vendor.min.css' // Plugin css files // TODO: Need to remove the styles files from this package
 ];
 
 // removing the duplicate files
@@ -294,6 +294,10 @@ module.exports = {
                 from: './content-editor/scripts/*.js',
                 to: './',
                 flatten: true
+            },
+            {
+                from: './plugins/dist/coreplugins.js',
+                to: './[name].[ext]',
             },
             {
                 from: './app/styles/noto.css',
