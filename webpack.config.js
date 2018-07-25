@@ -297,7 +297,7 @@ module.exports = {
             },
             {
                 from: './plugins/dist/coreplugins.js',
-                to: './[name].[ext]',
+                to: './',
             },
             {
                 from: './app/styles/noto.css',
