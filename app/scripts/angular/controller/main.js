@@ -281,9 +281,9 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 
 
 		$scope.chooseOption = function (option) {
-			if(option.action){
+			if (option.action) {
 				$scope.showInput = false;
-			} 
+			}
 			option.selected = true;
 			$scope.history.push(JSON.parse(JSON.stringify($scope.currentOption)));
 			$scope.currentOption = option;
@@ -305,9 +305,10 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 			$scope.$safeApply();
 		}
 
-		$scope.startAppuVoice = function () {
+		$scope.startAppuVoice = function ($event) {
 			if ($scope.appuVoice === false) {
 				$scope.appuVoice = true;
+				$scope.showToolTip('Speak any of the given command.')
 				ecEditor.dispatchEvent('org.ekstep.appu:startSpeechListener');
 			} else {
 				$scope.appuVoice = false;
@@ -320,7 +321,22 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 		$scope.done = function () {
 			alert('yay! you are all set...');
 		}
-
+		$scope.showToolTip = function (message) {
+			$('#btnMic')
+				.attr('title', message)
+				.popup('fixTitle')
+				.popup({
+					onCreate: function () {
+						$('#btnMic').popup({
+							position: 'right center',
+							delay: {
+								show: 300,
+								hide: 800
+							  }
+						}).popup('toggle');
+					}
+				}).popup('show').popup('toggle');
+		}
 		$scope.initAppu = function () {
 			$scope.showInput = true;
 			$scope.appuVoice = false;
@@ -420,7 +436,11 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 			$scope.currentOption = $scope.optionsData;
 			$scope.remainingOptions = $scope.optionsData.options;
 			$scope.history = [];
+			ecEditor.addEventListener('org.ekstep.appu:message', function (e,data) {
+				$scope.showToolTip(data.message);
+			}, this);
 			$scope.$safeApply();
 		}
+
 	}
 ])

@@ -134,8 +134,8 @@
                         <form class="ui form"><textarea placeholeder="Enter any command" name="chat-input" rows="2" autofocus></textarea>
                         </form>
                     </div>
-                    <div class="ui approve button" ng-click="reset()">Reset</div>
-                    <button class="circular ui icon button" ng-click="startAppuVoice()" ng-class="{red:(appuVoice == true)}">
+                    <div ng-if="!showInput" class="ui approve button" ng-click="reset()">Reset</div>
+                    <button id='btnMic' ng-if="showInput" class="circular ui icon button" ng-click="startAppuVoice($event)" ng-class="{red:(appuVoice == true)}">
                         <i class="microphone icon" ></i>
                     </button>
                 </div>
