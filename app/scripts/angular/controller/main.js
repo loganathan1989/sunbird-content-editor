@@ -3,7 +3,7 @@
  */
 'use strict'
 
-angular.module('editorApp', ['ngDialog', 'oc.lazyLoad', 'Scope.safeApply','ngSanitize']).factory('cacheBustInterceptor', ['$templateCache', function ($templateCache) {
+angular.module('editorApp', ['ngDialog', 'oc.lazyLoad', 'Scope.safeApply', 'ngSanitize']).factory('cacheBustInterceptor', ['$templateCache', function ($templateCache) {
 	return {
 		request: function (config) {
 			config.alreadyCached = $templateCache.get(config.url)
@@ -290,9 +290,9 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 		}
 
 		$scope.reset = function () {
-			$scope.currentOption = JSON.parse(JSON.stringify(data));
+			$scope.currentOption = JSON.parse(JSON.stringify($scope.data));
 			$scope.history = [];
-			$scope.remainingOptions = optionsData.options;
+			$scope.remainingOptions = $scope.optionsData.options;
 			$scope.$safeApply();
 		}
 
@@ -319,38 +319,101 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 
 		$scope.initAppu = function () {
 			$scope.appuVoice = false;
-			var data = {
-				command: "",
-				msg: "Your next topic to teach is <b>Meteoroids</b>. However the attendance to the previous <b>Asteroids</b> is not satisfactory. Would you like to",
-				options: [{
-					command: "Revise Asteroids",
-					msg: "How would you like to create a package?",
-					options: [{
-						command: "With Assessment",
-						msg: "Please select the number of questions in the assessment",
+			// var data = {
+			// 	command: "",
+			// 	msg: "Your next topic to teach is <b>Meteoroids</b>. However the attendance to the previous <b>Asteroids</b> is not satisfactory. Would you like to",
+			// 	options: [{
+			// 		command: "Revise Asteroids",
+			// 		msg: "How would you like to create a package?",
+			// 		options: [{
+			// 			command: "With Assessment",
+			// 			msg: "Please select the number of questions in the assessment",
+			// 			options: [{
+			// 				command: "10",
+			// 				msg: "A package with the given details has been initiated..."
+			// 			}, {
+			// 				command: "15",
+			// 				msg: "A package with the given details has been initiated..."
+			// 			}, {
+			// 				command: "20",
+			// 				msg: "A package with the given details has been initiated..."
+			// 			}]
+			// 		}, {
+			// 			command: "Without Assessment",
+			// 			msg: "Noted. Creating a package right away..."
+			// 		}]
+			// 	}, {
+			// 		command: "Teach Meteoroids"
+			// 	}, {
+			// 		command: "Revise Asteroids & Teach Meteoroids"
+			// 	}]
+			// }
+			$scope.data = {
+				msg: "<p>To Start with Appu Click Start button or type any of the command below:<ul><li>get images of crow</li><li>get questions of topic java</li></ul></p><br />",
+				options:
+					[{
+						command: "START",
+						msg: "Would you like to create ?",
+						action: true,
 						options: [{
-							command: "10",
-							msg: "A package with the given details has been initiated..."
-						}, {
-							command: "15",
-							msg: "A package with the given details has been initiated..."
-						}, {
-							command: "20",
-							msg: "A package with the given details has been initiated..."
+							command: "Assessment",
+							msg: "Choose type ?",
+							options: [{
+								command: "pdf",
+								msg: "How many questions you want to create ?",
+								options: [{
+									command: "5",
+									msg: "A package with the given details has been initiated..."
+								},
+								{
+									command: "10",
+									msg: "A package with the given details has been initiated..."
+								},
+								{
+									command: "15",
+									msg: "A package with the given details has been initiated..."
+								}]
+							},
+							{
+								command: "auto suggest",
+								msg: "auto suggest",
+								options: [{
+									command: "auto suggest?",
+									msg: "How many questions you want to create ?",
+									options: [{
+										command: "5",
+										msg: "A package with the given details has been initiated..."
+									},
+									{
+										command: "10",
+										msg: "A package with the given details has been initiated..."
+									},
+									{
+										command: "15",
+										msg: "A package with the given details has been initiated..."
+									}
+									]
+								}]
+							}]
+						},
+						{
+							command: "Content",
+							msg: "Which content would you like to use",
+							options: [{
+								command: "pdf",
+								msg: "pdf"
+							},
+							{
+								command: "image",
+								msg: "image"
+							}]
 						}]
-					}, {
-						command: "Without Assessment",
-						msg: "Noted. Creating a package right away..."
 					}]
-				}, {
-					command: "Teach Meteoroids"
-				}, {
-					command: "Revise Asteroids & Teach Meteoroids"
-				}]
+
 			}
-			var optionsData = JSON.parse(JSON.stringify(data));
-			$scope.currentOption = optionsData;
-			$scope.remainingOptions = optionsData.options;
+			$scope.optionsData = JSON.parse(JSON.stringify($scope.data));
+			$scope.currentOption = $scope.optionsData;
+			$scope.remainingOptions = $scope.optionsData.options;
 			$scope.history = [];
 			$scope.$safeApply();
 		}
