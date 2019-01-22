@@ -3,7 +3,7 @@
  */
 'use strict'
 
-angular.module('editorApp', ['ngDialog', 'oc.lazyLoad', 'Scope.safeApply']).factory('cacheBustInterceptor', ['$templateCache', function ($templateCache) {
+angular.module('editorApp', ['ngDialog', 'oc.lazyLoad', 'Scope.safeApply','ngSanitize']).factory('cacheBustInterceptor', ['$templateCache', function ($templateCache) {
 	return {
 		request: function (config) {
 			config.alreadyCached = $templateCache.get(config.url)
@@ -65,7 +65,7 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 		$scope.loadNgModules = function (templatePath, controllerPath) {
 			var files = []
 			if (templatePath) files.push({ type: 'html', path: templatePath })
-			if (controllerPath) files.push({type: 'js', path: controllerPath + '?' + ecEditor.getConfig('build_number')})
+			if (controllerPath) files.push({ type: 'js', path: controllerPath + '?' + ecEditor.getConfig('build_number') })
 			if (files.length) return $ocLazyLoad.load(files)
 		}
 
@@ -126,7 +126,7 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 			$scope.$safeApply()
 		}
 
-		function toggleGenieControls () {
+		function toggleGenieControls() {
 			if (!$scope.showGenieControls) {
 				// Position the transparent image correctly on top of image
 				setTimeout(function () {
@@ -276,72 +276,83 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 		}
 
 
-		$scope.appuVoice = false;
-		var data = {
-			msg: "Your next topic to teach is <b>Meteoroids</b>. However the attendance to the previous <b>Asteroids</b> is not satisfactory. Would you like to",
-			options: [{
-				command: "Revise Asteroids",
-				msg: "How would you like to create a package?",
-				options: [{
-					command: "With Assessment",
-					msg: "Please select the number of questions in the assessment",
-					options: [{
-						command: "10",
-						msg: "A package with the given details has been initiated..."
-					},{
-						command: "15",
-						msg: "A package with the given details has been initiated..."
-					},{
-						command: "20",
-						msg: "A package with the given details has been initiated..."
-					}]
-				}, {
-					command: "Without Assessment",
-					msg: "Noted. Creating a package right away..."
-				}]
-			}, {
-				command: "Teach Meteoroids"
-			}, {
-				command: "Revise Asteroids & Teach Meteoroids"
-			}]
-		}
-		
-		var optionsData = JSON.parse(JSON.stringify(data));
-		$scope.currentOption = optionsData;
-		$scope.remainingOptions = optionsData.options;
-		$scope.history = [];
-	
-		$scope.chooseOption = function(option) {
+
+
+
+
+		$scope.chooseOption = function (option) {
 			option.selected = true;
 			$scope.history.push(JSON.parse(JSON.stringify($scope.currentOption)));
 			$scope.currentOption = option;
-			$scope.remainingOptions = _.filter($scope.remainingOptions, function(mainOption){ return mainOption.command != option.command; });
-			$('#appuDiv').animate({scrollTop: $('#appuDiv').get(0).scrollHeight}, 1000); 
+			$scope.remainingOptions = _.filter($scope.remainingOptions, function (mainOption) { return mainOption.command != option.command; });
+			$('#appuDiv').animate({ scrollTop: $('#appuDiv').get(0).scrollHeight }, 1000);
+			$scope.$safeApply();
 		}
-	
-		$scope.reset = function() {
+
+		$scope.reset = function () {
 			$scope.currentOption = JSON.parse(JSON.stringify(data));
 			$scope.history = [];
 			$scope.remainingOptions = optionsData.options;
+			$scope.$safeApply();
 		}
-	
-		$scope.selectAnother = function() {
-			$scope.currentOption = {'options': $scope.remainingOptions};
+
+		$scope.selectAnother = function () {
+			$scope.currentOption = { 'options': $scope.remainingOptions };
+			$scope.$safeApply();
 		}
-	
-		$scope.startAppuVoice = function(){
-			if($scope.appuVoice === false){
+
+		$scope.startAppuVoice = function () {
+			if ($scope.appuVoice === false) {
 				$scope.appuVoice = true;
 				ecEditor.dispatchEvent('org.ekstep.appu:startSpeechListener');
 			} else {
 				$scope.appuVoice = false;
 				ecEditor.dispatchEvent('org.ekstep.appu:stopSpeechListener');
 			}
-			
-		}		
+			$scope.$safeApply();
 
-		$scope.done = function() {
+		}
+
+		$scope.done = function () {
 			alert('yay! you are all set...');
+		}
+
+		$scope.initAppu = function () {
+			$scope.appuVoice = false;
+			var data = {
+				command: "",
+				msg: "Your next topic to teach is <b>Meteoroids</b>. However the attendance to the previous <b>Asteroids</b> is not satisfactory. Would you like to",
+				options: [{
+					command: "Revise Asteroids",
+					msg: "How would you like to create a package?",
+					options: [{
+						command: "With Assessment",
+						msg: "Please select the number of questions in the assessment",
+						options: [{
+							command: "10",
+							msg: "A package with the given details has been initiated..."
+						}, {
+							command: "15",
+							msg: "A package with the given details has been initiated..."
+						}, {
+							command: "20",
+							msg: "A package with the given details has been initiated..."
+						}]
+					}, {
+						command: "Without Assessment",
+						msg: "Noted. Creating a package right away..."
+					}]
+				}, {
+					command: "Teach Meteoroids"
+				}, {
+					command: "Revise Asteroids & Teach Meteoroids"
+				}]
+			}
+			var optionsData = JSON.parse(JSON.stringify(data));
+			$scope.currentOption = optionsData;
+			$scope.remainingOptions = optionsData.options;
+			$scope.history = [];
+			$scope.$safeApply();
 		}
 	}
 ])

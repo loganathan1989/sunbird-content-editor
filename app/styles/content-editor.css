@@ -576,31 +576,31 @@ i.icon.custom-icon.dropdown-icon{
     text-transform: capitalize;
 }
 
-.ui.fluid.container {
+#appuDv {
     width: 90%;
  }
- .menu {
+ #appuDv .menu {
     margin-top: 10px !important;
  }
- .chartDiv {
+ #appuDv .chartDiv {
     display: block;
     width: 1000px;
     height: 320px;
     margin-bottom: 20px;
  }
- .button {
+ #appuDv .button {
     margin-top: 0.5em !important;
  }
- .content {
+ #appuDv .content {
     overflow: scroll;
     display: block;
     height: 330px;
  }
- .check {
+ #appuDv .check {
     padding-left: 10px;
  }
 
- .chatbot-container{
+ #appuDv .chatbot-container{
     width: 450px;
     right: 5% !important;
     left: none !important; 
