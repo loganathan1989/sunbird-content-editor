@@ -340,7 +340,7 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 
 		$scope.myFunct = function(keyEvent) {
 			if (keyEvent.which === 13){
-				console.log(keyEvent.currentTarget.value);
+				window.executeCommand(keyEvent.currentTarget.value);
 			}
 				
 		}

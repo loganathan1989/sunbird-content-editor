@@ -129,16 +129,20 @@
                         <button class="ui button" ng-if="!currentOption.options && remainingOptions.length <= 0" ng-click="done()" class="chat-color">Done</button>
                     </div>
                 </div>
+                
                 <div class="actions " style="bottom: 0px;position: absolute;display: block;width: 100%;">
+                    <div class="floating">
+                        <div ng-if="!showInput" class="ui approve button chat-color" ng-click="reset()" >Reset</div>
+                        <button id='btnMic' ng-if="showInput" class="circular ui icon button chat-color" ng-click="startAppuVoice($event)" ng-class="{red:(appuVoice == true)}">
+                            <i class="microphone icon" ></i>
+                        </button>
+                    </div>
+                        
                     <div ng-if="showInput">
                         <form class="ui form">
-                            <textarea placeholeder="Enter any command" name="chat-input" rows="2" class="" autofocus></textarea>
+                            <textarea placeholeder="Enter any command" name="chat-input" rows="2" class=""  ng-keypress="myFunct($event)" autofocus></textarea>
                         </form>
                     </div>
-                    <div ng-if="!showInput" class="ui approve button chat-color" ng-click="reset()" >Reset</div>
-                    <button id='btnMic' ng-if="showInput" class="circular ui icon button chat-color" ng-click="startAppuVoice($event)" ng-class="{red:(appuVoice == true)}">
-                        <i class="microphone icon" ></i>
-                    </button>
                 </div>
             </div>
         </div>
