@@ -321,6 +321,13 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 			alert('yay! you are all set...');
 		}
 
+		$scope.myFunct = function(keyEvent) {
+			if (keyEvent.which === 13){
+				console.log(keyEvent.currentTarget.value);
+			}
+				
+		}
+
 		$scope.initAppu = function () {
 			$scope.showInput = true;
 			$scope.appuVoice = false;
