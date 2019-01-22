@@ -275,6 +275,8 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 			$scope.telemetryService.interact({ 'type': 'click', 'subtype': 'menu', 'target': menuType, 'pluginid': menu.pluginId, 'pluginver': menu.pluginVer, 'objectid': menu.id, 'stage': org.ekstep.contenteditor.stageManager.currentStage.id })
 		}
 
+
+		$scope.appuVoice = false;
 		var data = {
 			msg: "Your next topic to teach is <b>Meteoroids</b>. However the attendance to the previous <b>Asteroids</b> is not satisfactory. Would you like to",
 			options: [{
@@ -327,6 +329,17 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 			$scope.currentOption = {'options': $scope.remainingOptions};
 		}
 	
+		$scope.startAppuVoice = function(){
+			if($scope.appuVoice === false){
+				$scope.appuVoice = true;
+				ecEditor.dispatchEvent('org.ekstep.appu:startSpeechListener');
+			} else {
+				$scope.appuVoice = false;
+				ecEditor.dispatchEvent('org.ekstep.appu:stopSpeechListener');
+			}
+			
+		}		
+
 		$scope.done = function() {
 			alert('yay! you are all set...');
 		}

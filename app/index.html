@@ -113,29 +113,30 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="ui modal" style="width: 450px;right: 5%; position: fixed; bottom: 10px; height: 450px;display: block;left:auto !important;">
-            <div class="header">Ask Appu</div>
-            <div class="content" id="appuDiv">
-                <p>Hey Vinu, I am Appu your personal assistant !</p>
-                <div ng-repeat="hist in history" style="padding-bottom: 10px; border-bottom: dashed 1px #ddd;">
-                    <p>{{hist.msg}}</p>
-                    <button ng-class="option.selected? 'ui button':'ui button disabled'" ng-repeat="option in hist.options">{{option.command}} <i class="check icon" ng-if="option.selected"></i></button>
+            <div class="ui modal" style="width: 450px;right: 5%; position: fixed; bottom: 10px; height: 450px;display: block;left:auto !important;">
+                <div class="header">Ask Appu</div>
+                <div class="content" id="appuDiv">
+                    <p>Hey Vinu, I am Appu your personal assistant !</p>
+                    <div ng-repeat="hist in history" style="padding-bottom: 10px; border-bottom: dashed 1px #ddd;">
+                        <p>{{hist.msg}}</p>
+                        <button ng-class="option.selected? 'ui button':'ui button disabled'" ng-repeat="option in hist.options">{{option.command}} <i class="check icon" ng-if="option.selected"></i></button>
+                    </div>
+                    <div style="padding-top: 10px">
+                        <p ng-bind-html="currentOption.msg"></p>
+                        <button class="ui button" ng-repeat="option in currentOption.options" ng-click="chooseOption(option)">{{option.command}}</button>
+                        <button class="ui button" ng-if="!currentOption.options && remainingOptions.length > 0" ng-click="selectAnother()">Select Another Option</button>
+                        <button class="ui button" ng-if="!currentOption.options && remainingOptions.length <= 0" ng-click="done()">Done</button>
+                    </div>
                 </div>
-                <div style="padding-top: 10px">
-                    <p ng-bind-html="currentOption.msg"></p>
-                    <button class="ui button" ng-repeat="option in currentOption.options" ng-click="chooseOption(option)">{{option.command}}</button>
-                    <button class="ui button" ng-if="!currentOption.options && remainingOptions.length > 0" ng-click="selectAnother()">Select Another Option</button>
-                    <button class="ui button" ng-if="!currentOption.options && remainingOptions.length <= 0" ng-click="done()">Done</button>
+                <div class="actions" style="bottom: 0px;position: absolute;display: block;width: 100%;">
+                    <div class="ui approve button" ng-click="reset()">Reset</div>
+                    <button class="circular ui icon button" ng-click="startAppuVoice()" ng-class="{red:(appuVoice == true)}">
+                        <i class="microphone icon" ></i>
+                    </button>
                 </div>
             </div>
-            <div class="actions" style="bottom: 0px;position: absolute;display: block;width: 100%;">
-                <div class="ui approve button" ng-click="reset()">Reset</div>
-                <button class="circular ui icon button">
-                    <i class="microphone icon"></i>
-                </button>
-            </div>
         </div>
+        
     </div>
     <div id="objectPointer" class="hover-effect" style="display: none;"></div>
     <!-- message for unsupported screen start -->
