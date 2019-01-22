@@ -609,3 +609,10 @@ i.icon.custom-icon.dropdown-icon{
     height: 450px;
     display: block;
  }
+
+ #appuDv .chat-color {
+    background-color: #2b3e51 !important;
+    color: #fff !important;
+ }
+
+

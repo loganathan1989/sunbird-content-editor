@@ -354,7 +354,7 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 			// 	}]
 			// }
 			$scope.data = {
-				msg: "<p>To Start with Appu Click Start button or type any of the command below:<ul><li>get images of crow</li><li>get questions of topic java</li></ul></p><br />",
+				msg: "<p>To Start with <b>Appu</b> click <b>start</b> button or type any of the <b>command</b> below:<ul><li>get images of crow</li><li>get questions of topic java</li></ul></p><br />",
 				options:
 					[{
 						command: "START",
