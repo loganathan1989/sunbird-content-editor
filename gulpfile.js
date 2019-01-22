@@ -15,9 +15,9 @@ var cleanCSS = require('clean-css');
 var replace = require('gulp-string-replace');
 var uglify = require('gulp-uglify');
 var git = require('gulp-git'); 
-var frameworkVersionNumber = process.env.framework_version_number;
-var editorVersionNumber = process.env.editor_version_number;
-var buildNumber = process.env.build_number;
+var frameworkVersionNumber = process.env.framework_version_number || 1;
+var editorVersionNumber = process.env.editor_version_number || 1;
+var buildNumber = process.env.build_number || 1;
 var branchName = process.env.branch || 'master';
 
 if (!editorVersionNumber && !buildNumber && !frameworkVersionNumber) {
@@ -351,7 +351,35 @@ gulp.task('buildDev', ['minifyDev', 'injectDev', 'zipDev', "cachebust"]);
 var corePlugins = [
     "org.ekstep.colorpicker-1.0",
     "org.ekstep.config-1.0",
+    "org.ekstep.assessmentbrowser-1.1",
+    "org.ekstep.assetbrowser-1.2",
+    "org.ekstep.colorpicker-1.0",
+    "org.ekstep.conceptselector-1.1",
+    "org.ekstep.stage-1.0",
+    "org.ekstep.text-1.2",
+    "org.ekstep.shape-1.0",
+    "org.ekstep.image-1.1",
+    "org.ekstep.audio-1.1",
+    "org.ekstep.hotspot-1.0",
+    "org.ekstep.scribblepad-1.0",
     "org.ekstep.readalongbrowser-1.0",
+    "org.ekstep.stageconfig-1.0",
+    "org.ekstep.telemetry-1.0",
+    "org.ekstep.activitybrowser-1.2",
+    "org.ekstep.collaborator-1.1",
+    "org.ekstep.download-1.0",
+    "org.ekstep.unsupported-1.0",
+    "org.ekstep.wordinfobrowser-1.0",
+    "org.ekstep.viewecml-1.0",
+    "org.ekstep.utils-1.0",
+    "org.ekstep.help-1.0",
+    "org.ekstep.video-1.0",
+    "org.ekstep.editorstate-1.0",
+    "org.ekstep.contenteditorfunctions-1.2",
+    "org.ekstep.keyboardshortcuts-1.0",
+    "org.ekstep.richtext-1.0",
+    "org.ekstep.iterator-1.0",
+    "org.ekstep.navigation-1.0"
 ];
 
 gulp.task('minifyCorePlugins', function() {
