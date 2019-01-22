@@ -119,7 +119,7 @@
                 <div class="content" id="appuDiv">
                     <p>Hey Vinu, I am Appu your personal assistant !</p>
                     <div ng-repeat="hist in history" style="padding-bottom: 10px; border-bottom: dashed 1px #ddd;">
-                        <p>{{hist.msg}}</p>
+                        <p ng-bind-html="hist.msg"></p>
                         <button ng-class="option.selected? 'ui button':'ui button disabled'" ng-repeat="option in hist.options">{{option.command}} <i class="check icon" ng-if="option.selected"></i></button>
                     </div>
                     <div style="padding-top: 10px">
@@ -130,6 +130,10 @@
                     </div>
                 </div>
                 <div class="actions" style="bottom: 0px;position: absolute;display: block;width: 100%;">
+                    <div ng-if="showInput">
+                        <form class="ui form"><textarea placeholeder="Enter any command" name="chat-input" rows="2" autofocus></textarea>
+                        </form>
+                    </div>
                     <div class="ui approve button" ng-click="reset()">Reset</div>
                     <button class="circular ui icon button" ng-click="startAppuVoice()" ng-class="{red:(appuVoice == true)}">
                         <i class="microphone icon" ></i>

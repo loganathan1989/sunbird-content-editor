@@ -281,6 +281,9 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 
 
 		$scope.chooseOption = function (option) {
+			if(option.action){
+				$scope.showInput = false;
+			} 
 			option.selected = true;
 			$scope.history.push(JSON.parse(JSON.stringify($scope.currentOption)));
 			$scope.currentOption = option;
@@ -290,6 +293,7 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 		}
 
 		$scope.reset = function () {
+			$scope.showInput = true;
 			$scope.currentOption = JSON.parse(JSON.stringify($scope.data));
 			$scope.history = [];
 			$scope.remainingOptions = $scope.optionsData.options;
@@ -318,6 +322,7 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 		}
 
 		$scope.initAppu = function () {
+			$scope.showInput = true;
 			$scope.appuVoice = false;
 			// var data = {
 			// 	command: "",
