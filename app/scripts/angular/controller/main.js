@@ -318,9 +318,16 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 
 		}
 
-		$scope.done = function () {
-			alert('yay! you are all set...');
+		$scope.done = function (currentOption) {
+			console.log('currentOption', currentOption);
+			console.log('yay! you are all set...');
+
+			if(currentOption.trigger){
+				ecEditor.dispatchEvent(currentOption.trigger, undefined)
+			}
 		}
+
+		
 		$scope.showToolTip = function (message) {
 			$('#btnMic')
 				.attr('title', message)
@@ -328,7 +335,7 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 				.popup({
 					onCreate: function () {
 						$('#btnMic').popup({
-							position: 'right center',
+							position: 'top center',
 							delay: {
 								show: 300,
 								hide: 800
@@ -348,6 +355,7 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 		$scope.initAppu = function () {
 			$scope.showInput = true;
 			$scope.appuVoice = false;
+			$scope.showAppu = true;
 			// var data = {
 			// 	command: "",
 			// 	msg: "Your next topic to teach is <b>Meteoroids</b>. However the attendance to the previous <b>Asteroids</b> is not satisfactory. Would you like to",
@@ -392,37 +400,43 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 								msg: "How many questions you want to create ?",
 								options: [{
 									command: "5",
-									msg: "A package with the given details has been initiated..."
+									trigger: "org.ekstep.devconquestion",
+									msg: "A package wit,h the given details has been initiated..."
 								},
 								{
 									command: "10",
+									trigger: "org.ekstep.devconquestion",
 									msg: "A package with the given details has been initiated..."
 								},
 								{
 									command: "15",
+									trigger: "org.ekstep.devconquestion",
 									msg: "A package with the given details has been initiated..."
 								}]
 							},
 							{
 								command: "auto suggest",
-								msg: "auto suggest",
-								options: [{
-									command: "auto suggest?",
-									msg: "How many questions you want to create ?",
+								msg: "How many questions you want to create ?",
+								// options: [{
+									// command: "auto suggest?",
+									// msg: "How many questions you want to create ?",
 									options: [{
 										command: "5",
+										trigger: "autoSuggest",
 										msg: "A package with the given details has been initiated..."
 									},
 									{
 										command: "10",
+										trigger: "autoSuggest",
 										msg: "A package with the given details has been initiated..."
 									},
 									{
 										command: "15",
+										trigger: "autoSuggest",
 										msg: "A package with the given details has been initiated..."
 									}
 									]
-								}]
+								// }]
 							}]
 						},
 						{
@@ -430,11 +444,13 @@ angular.module('editorApp').controller('MainCtrl', ['$scope', '$timeout', '$http
 							msg: "Which content would you like to use",
 							options: [{
 								command: "pdf",
-								msg: "pdf"
+								// msg: "pdf"
+								trigger: "org.ekstep.devconquestion:add"
 							},
 							{
 								command: "image",
-								msg: "image"
+								// msg: "image"
+								trigger: "org.ekstep.devconquestion:add"
 							}]
 						}]
 					}]
